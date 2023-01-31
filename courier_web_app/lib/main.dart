@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+
+import 'pages/qrScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,35 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage('Please scan the QR code below.'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            SizedBox(
-              height: 80,
-            ),
-            SizedBox(
-              height: 80,
-            )
-          ],
-        ),
-      ),
+      home: const QRScreen('1. Please scan the QR code below:'),
     );
   }
 }
