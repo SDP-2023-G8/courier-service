@@ -28,3 +28,31 @@ This repository is built on two core technologies
 
 1. Flutter on Web
 2. Firebase
+
+### 3. Usage
+
+In order to run the application, you will first have to check that chrome (web) is listed as one of the flutter devices by running 
+
+```
+flutter devices
+```
+
+If you have Chrome installed, this device should appear in this list.
+
+After ensuring the device is available, you can run the following command to execute the application locally:
+
+```
+flutter run -d chrome
+```
+
+This will open a terminal session that supports hot restarting for development purposes (hot reload not currently supported by Flutter Web).
+
+To edit and view the local database emulator, first ensure that firebase-tools is installed on your machine, otherwise install via npm. You can then navigate to the backend directory in the root folder and execute the command to start the firebase emulators.
+
+```
+npm install -g firebase-tools
+cd backend 
+firebase emulators:start
+```
+
+**If you are running the latest version of firebase-tools you will need to have Java 11 installed for this step to work as Firebase CLI has dropped support for older versions of Java**
