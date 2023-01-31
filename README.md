@@ -3,9 +3,9 @@ This repository contains the full-stack website for the online courier service.
 
 This web app consists of three screens:
 
-    - The first screen displays the QR code used to authenticate the delivery 
-    - The second screen is an in-browser camera for the courier to optionally take a proof of delivery image that gets uploaded to our server.
-    - The third screen is a confirmation screen indicating to the courier that they can close the tab
+- The first screen displays the QR code used to authenticate the delivery 
+- The second screen is an in-browser camera for the courier to optionally take a proof of delivery image that gets uploaded to our server.
+- The third screen is a confirmation screen indicating to the courier that they can close the tab
 
 Refer to the mock screens below for a general idea of what these screens will look like.
 
