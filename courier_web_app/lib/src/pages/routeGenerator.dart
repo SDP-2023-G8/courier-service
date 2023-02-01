@@ -20,15 +20,19 @@ class RouteGenerator {
 
     switch (route) {
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => QRScreen(deliveryID));
+        return MaterialPageRoute(
+            builder: (_) => QRScreen(deliveryID), settings: settings);
       case cameraRoute:
-        return MaterialPageRoute(builder: (_) => CameraScreen());
+        return MaterialPageRoute(
+            builder: (_) => CameraScreen(), settings: settings);
       case confirmRoute:
-        return MaterialPageRoute(builder: (_) => ConfirmScreen("Something"));
+        return MaterialPageRoute(
+            builder: (_) => ConfirmScreen("Something"), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) =>
-                Scaffold(body: Center(child: Text("404: Not Found"))));
+                Scaffold(body: Center(child: Text("404: Not Found"))),
+            settings: settings);
     }
   }
 }
