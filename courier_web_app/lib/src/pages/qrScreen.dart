@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:courier_web_app/src/pages/cameraScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:qr_flutter/qr_flutter.dart';
 
 const bool useEmulator = true;
 
 class QRScreen extends StatefulWidget {
-  const QRScreen(this.title);
-
-  final String title;
+  const QRScreen({Key? key}) : super(key: key);
 
   @override
   _QRScreenState createState() => _QRScreenState();
@@ -23,6 +21,7 @@ class _QRScreenState extends State<QRScreen> {
 
   @override
   void didChangeDependencies() async {
+    super.didChangeDependencies();
     if (useEmulator) {
       db.useFirestoreEmulator(host, 8080);
       db.settings = const Settings(
@@ -33,7 +32,7 @@ class _QRScreenState extends State<QRScreen> {
     await db.collection('users').doc('user1').get().then((user) {
       setState(() {
         if (user.exists) {
-          this._username = user.data()!['username'];
+          _username = user.data()!['username'];
         }
       });
     });
@@ -42,11 +41,34 @@ class _QRScreenState extends State<QRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
-        child: Text("User 1 has username $_username"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            const Text('1. Point the QR Code at the Camera'),
+            QrImage(data: 'deliveryID+hashCode', size: 150),
+            TextButton(
+              child: const Text(
+                'Next (debugging)',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.orange,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CameraScreen()),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
