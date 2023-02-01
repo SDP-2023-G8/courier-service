@@ -7,14 +7,19 @@ import 'package:qr_flutter/qr_flutter.dart';
 const bool useEmulator = true;
 
 class QRScreen extends StatefulWidget {
-  const QRScreen({Key? key}) : super(key: key);
+  const QRScreen(this.cameras);
+
+  final cameras;
 
   @override
-  _QRScreenState createState() => _QRScreenState();
+  _QRScreenState createState() => _QRScreenState(cameras);
 }
 
 class _QRScreenState extends State<QRScreen> {
-  String _username = "";
+  _QRScreenState(this.cameras);
+
+  final cameras;
+  String _username = '';
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   String host = 'localhost'; // change when using Cloud Firestore
@@ -41,36 +46,41 @@ class _QRScreenState extends State<QRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '1. Point the QR Code at the Camera',
-              style: TextStyle(fontSize: 22),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            QrImage(data: 'deliveryID+hashCode', size: 300),
-            TextButton(
-              child: const Text(
-                'Next (debugging)',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.orange,
-                  letterSpacing: -0.5,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                '1. Point the QR Code at the Camera',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraScreen()),
-                );
-              },
-            )
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              QrImage(data: 'deliveryID+hashCode', size: 270.0),
+              TextButton(
+                child: const Text(
+                  'Next (debugging)',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.orange,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CameraScreen(cameras, false)),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
