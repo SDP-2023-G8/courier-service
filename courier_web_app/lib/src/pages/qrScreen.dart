@@ -7,17 +7,16 @@ import 'package:qr_flutter/qr_flutter.dart';
 const bool useEmulator = true;
 
 class QRScreen extends StatefulWidget {
-  final String title;
   final String url;
 
-  const QRScreen(this.title, this.url);
+  const QRScreen(this.url);
 
   @override
   _QRScreenState createState() => _QRScreenState();
 }
 
 class _QRScreenState extends State<QRScreen> {
-  String _username = "";
+  String _hash = "";
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   String host = 'localhost'; // change when using Cloud Firestore
@@ -32,10 +31,10 @@ class _QRScreenState extends State<QRScreen> {
       );
     }
 
-    await db.collection('users').doc('user1').get().then((user) {
+    await db.collection('deliveries').doc('delivery1').get().then((delivery) {
       setState(() {
-        if (user.exists) {
-          _username = user.data()!['username'];
+        if (delivery.exists) {
+          _hash = delivery.data()!['hash'];
         }
       });
     });
@@ -55,7 +54,7 @@ class _QRScreenState extends State<QRScreen> {
             const SizedBox(
               height: 50,
             ),
-            QrImage(data: 'deliveryID+hashCode', size: 300),
+            QrImage(data: '${widget.url}+${_hash}', size: 300),
             TextButton(
               child: const Text(
                 'Next (debugging)',

@@ -17,7 +17,7 @@ class RouteGenerator {
 
     return MaterialPageRoute(
       builder: (context) {
-        return QRScreen("1. Please scan the QR code below:", deliveryID);
+        return QRScreen(deliveryID);
       },
       settings: settings,
     );
@@ -29,14 +29,14 @@ class CourierBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/?id=245",
+      initialRoute: "/?id=12345678910",
       title: 'InBoX Online Courier Service',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       routes: {
         '/': (context) {
-          return QRScreen("Home", "NaN");
+          return QRScreen("NaN");
         }
       },
       onGenerateRoute: RouteGenerator.generateRoute,
