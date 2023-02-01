@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'pages/qrScreen.dart';
 
 class CourierBox extends StatelessWidget {
-  const CourierBox();
+  const CourierBox({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -13,7 +13,7 @@ class CourierBox extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const QRScreen('1. Please scan the QR code below:'),
+      home: const QRScreen(),
     );
   }
 }
