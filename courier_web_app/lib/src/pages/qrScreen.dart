@@ -7,9 +7,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 const bool useEmulator = true;
 
 class QRScreen extends StatefulWidget {
-  const QRScreen(this.title);
-
   final String title;
+  final String url;
+
+  const QRScreen(this.title, this.url);
 
   @override
   _QRScreenState createState() => _QRScreenState();
@@ -46,7 +47,7 @@ class _QRScreenState extends State<QRScreen> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Text("User 1 has username $_username"),
+        child: Text(widget.url),
       ),
     );
   }
