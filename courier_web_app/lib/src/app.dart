@@ -1,28 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/qrScreen.dart';
-
-class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    String? route;
-    String? queryID;
-
-    if (settings.name != null) {
-      var uriData = Uri.parse(settings.name!); // Parse the URL
-      route = uriData.path; // Get base URL
-      queryID = uriData.queryParameters['id']; // Get query parameters
-    }
-
-    final String deliveryID = '$queryID';
-
-    return MaterialPageRoute(
-      builder: (context) {
-        return QRScreen(deliveryID);
-      },
-      settings: settings,
-    );
-  }
-}
+import 'pages/routeGenerator.dart';
 
 class CourierBox extends StatelessWidget {
   // This widget is the root of your application.
@@ -34,11 +12,6 @@ class CourierBox extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
-        '/': (context) {
-          return QRScreen("NaN");
-        }
-      },
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
