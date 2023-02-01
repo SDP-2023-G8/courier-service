@@ -43,13 +43,16 @@ class _QRScreenState extends State<QRScreen> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 80,
+            const Text(
+              '1. Point the QR Code at the Camera',
+              style: TextStyle(fontSize: 22),
             ),
-            const Text('1. Point the QR Code at the Camera'),
-            QrImage(data: 'deliveryID+hashCode', size: 150),
+            const SizedBox(
+              height: 50,
+            ),
+            QrImage(data: 'deliveryID+hashCode', size: 300),
             TextButton(
               child: const Text(
                 'Next (debugging)',
