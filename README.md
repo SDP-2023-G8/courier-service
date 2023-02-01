@@ -9,7 +9,7 @@ This web app consists of three screens:
 
 Refer to the mock screens below for a general idea of what these screens will look like.
 
-[Insert Image]
+![image](https://user-images.githubusercontent.com/34693834/216079687-696b8dff-d17b-43a2-8b1a-7ecf6d725276.png)
 
 ### 1. Use Case
 
