@@ -14,5 +14,5 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(CourierBox());
+  runApp(const CourierBox());
 }
