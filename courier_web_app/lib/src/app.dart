@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'pages/qrScreen.dart';
+
+import 'pages/routeGenerator.dart';
 
 class CourierBox extends StatelessWidget {
-  const CourierBox({Key? key}) : super(key: key);
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      initialRoute: "/?id=12345678910",
       title: 'InBoX Online Courier Service',
-      home: QRScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
