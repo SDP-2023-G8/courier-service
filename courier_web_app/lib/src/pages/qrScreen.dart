@@ -65,14 +65,27 @@ class _QRScreenState extends State<QRScreen> {
                   letterSpacing: -0.5,
                 ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraScreen()),
-                );
-              },
-            )
-          ],
+              QrImage(data: 'deliveryID+hashCode', size: 270.0),
+              TextButton(
+                child: const Text(
+                  'Next (debugging)',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.orange,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CameraScreen()),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
