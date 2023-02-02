@@ -56,3 +56,7 @@ firebase emulators:start
 ```
 
 **If you are running the latest version of firebase-tools you will need to have Java 11 installed for this step to work as Firebase CLI has dropped support for older versions of Java**
+
+### 4. QR Code Details
+
+In the current implementation, the QR code is generated from a string in the format `deliveryID+hashCode` where deliveryID uniquely identifies a delivery in the Firestore Cloud database and hashCode refers to an MD5 hash stored as a field under that delivery's record.
