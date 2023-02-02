@@ -4,19 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:camera/camera.dart';
 
 class CameraScreen extends StatefulWidget {
-  const CameraScreen(this.cameras, this.flag);
+  static late List<CameraDescription> cameras;
 
-  final List<CameraDescription> cameras;
-  final bool flag;
+  const CameraScreen({Key? key}) : super(key: key);
 
   @override
-  _CameraScreen createState() => _CameraScreen(cameras, flag);
+  _CameraScreen createState() => _CameraScreen(cameras);
 }
 
 class _CameraScreen extends State<CameraScreen> {
-  _CameraScreen(this._cameras, this._flag);
+  _CameraScreen(this._cameras);
 
-  bool _flag;
+  bool _flag = false;
   late String _imagePath;
   final List<CameraDescription> _cameras;
   late CameraController _controller;
@@ -78,7 +77,7 @@ class _CameraScreen extends State<CameraScreen> {
                     _flag
                         ? Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(

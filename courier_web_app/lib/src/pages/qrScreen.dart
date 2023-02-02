@@ -7,18 +7,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 const bool useEmulator = true;
 
 class QRScreen extends StatefulWidget {
-  const QRScreen(this.cameras);
-
-  final cameras;
+  const QRScreen({Key? key}) : super(key: key);
 
   @override
-  _QRScreenState createState() => _QRScreenState(cameras);
+  _QRScreenState createState() => _QRScreenState();
 }
 
 class _QRScreenState extends State<QRScreen> {
-  _QRScreenState(this.cameras);
-
-  final cameras;
   String _username = '';
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -75,7 +70,7 @@ class _QRScreenState extends State<QRScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CameraScreen(cameras, false)),
+                        builder: (context) => const CameraScreen()),
                   );
                 },
               )

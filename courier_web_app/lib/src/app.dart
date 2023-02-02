@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'pages/qrScreen.dart';
 
 class CourierBox extends StatelessWidget {
-  const CourierBox(this.cameras);
+  const CourierBox({Key? key}) : super(key: key);
 
-  final cameras;
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'InBoX Online Courier Service',
-      home: QRScreen(cameras),
+      home: QRScreen(),
     );
   }
 }
