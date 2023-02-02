@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../data/routes.dart';
 import 'qrScreen.dart';
 import 'cameraScreen.dart';
@@ -24,14 +23,14 @@ class RouteGenerator {
             builder: (_) => QRScreen(deliveryID), settings: settings);
       case cameraRoute:
         return MaterialPageRoute(
-            builder: (_) => CameraScreen(), settings: settings);
+            builder: (_) => const CameraScreen(), settings: settings);
       case confirmRoute:
         return MaterialPageRoute(
-            builder: (_) => ConfirmScreen("Something"), settings: settings);
+            builder: (_) => const ConfirmScreen(), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) =>
-                Scaffold(body: Center(child: Text("404: Not Found"))),
+                const Scaffold(body: Center(child: Text("404: Not Found"))),
             settings: settings);
     }
   }

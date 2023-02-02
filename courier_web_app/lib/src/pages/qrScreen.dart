@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:courier_web_app/src/pages/cameraScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 const bool useEmulator = true;
@@ -9,7 +8,7 @@ const bool useEmulator = true;
 class QRScreen extends StatefulWidget {
   final String url;
 
-  const QRScreen(this.url);
+  const QRScreen(this.url, {Key? key}) : super(key: key);
 
   @override
   _QRScreenState createState() => _QRScreenState();
@@ -54,7 +53,7 @@ class _QRScreenState extends State<QRScreen> {
             const SizedBox(
               height: 50,
             ),
-            QrImage(data: '${widget.url}+${_hash}', size: 300),
+            QrImage(data: '${widget.url}+$_hash', size: 270),
             TextButton(
               child: const Text(
                 'Next (debugging)',
@@ -65,27 +64,14 @@ class _QRScreenState extends State<QRScreen> {
                   letterSpacing: -0.5,
                 ),
               ),
-              QrImage(data: 'deliveryID+hashCode', size: 270.0),
-              TextButton(
-                child: const Text(
-                  'Next (debugging)',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.orange,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CameraScreen()),
-                  );
-                },
-              )
-            ],
-          ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CameraScreen()),
+                );
+              },
+            )
+          ],
         ),
       ),
     );

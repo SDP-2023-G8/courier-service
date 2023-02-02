@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'pages/routeGenerator.dart';
 
 class CourierBox extends StatelessWidget {
-  // This widget is the root of your application.
+  const CourierBox({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,6 +1,5 @@
 import 'package:courier_web_app/src/pages/confirmScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:camera/camera.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -108,7 +107,7 @@ class _CameraScreen extends State<CameraScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ConfirmScreen()),
+                                                const ConfirmScreen()),
                                       );
                                     })
                               ],
