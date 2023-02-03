@@ -1,4 +1,4 @@
-import 'package:courier_web_app/src/pages/confirmScreen.dart';
+import 'package:courier_web_app/src/pages/confirm_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 

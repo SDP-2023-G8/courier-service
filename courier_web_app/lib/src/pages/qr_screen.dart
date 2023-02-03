@@ -1,7 +1,6 @@
 import 'package:courier_web_app/src/data/database.dart';
-import 'package:firebase_dart/auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:courier_web_app/src/pages/cameraScreen.dart';
+import 'package:courier_web_app/src/pages/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/routeGenerator.dart';
+import 'pages/route_generator.dart';
 
 class CourierBox extends StatelessWidget {
   const CourierBox({Key? key}) : super(key: key);
