@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'pages/route_generator.dart';
 
 class CourierBox extends StatelessWidget {

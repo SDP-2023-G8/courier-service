@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-
 import 'package:courier_web_app/src/pages/confirm_screen.dart';
 
 const bool useEmulator = true;
@@ -67,7 +66,13 @@ class _CameraScreen extends State<CameraScreen> {
   }
 
   void resetCameraController() {
-    _controller = CameraController(_cameras[0], ResolutionPreset.max);
+    CameraDescription description = _cameras.isEmpty
+        ? const CameraDescription(
+            name: '',
+            lensDirection: CameraLensDirection.back,
+            sensorOrientation: 1)
+        : _cameras[0];
+    _controller = CameraController(description, ResolutionPreset.max);
     _initializedControllerFuture = _controller.initialize();
   }
 
@@ -77,6 +82,7 @@ class _CameraScreen extends State<CameraScreen> {
       body: FutureBuilder<void>(
           future: _initializedControllerFuture,
           builder: (context, snapshot) {
+            if (_cameras.isEmpty) return const ConfirmScreen();
             if (snapshot.connectionState != ConnectionState.done) {
               return const Center(child: CircularProgressIndicator());
             }
