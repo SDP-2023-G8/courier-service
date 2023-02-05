@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'src/pages/cameraScreen.dart';
+import 'src/pages/camera_screen.dart';
 
 import 'src/app.dart';
 

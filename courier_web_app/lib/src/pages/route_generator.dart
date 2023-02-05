@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../data/routes.dart';
-import 'qrScreen.dart';
-import 'cameraScreen.dart';
-import 'confirmScreen.dart';
+import 'qr_screen.dart';
+import 'camera_screen.dart';
+import 'confirm_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

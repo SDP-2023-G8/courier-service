@@ -55,8 +55,36 @@ cd backend
 firebase emulators:start
 ```
 
+To use the local emulator, make sure to import the appropriate JSON tree structure to `inbox-sdp-default-rtdb`, otherwise the data will not be visible to the app.
+
 **If you are running the latest version of firebase-tools you will need to have Java 11 installed for this step to work as Firebase CLI has dropped support for older versions of Java**
 
 ### 4. QR Code Details
 
 In the current implementation, the QR code is generated from a string in the format `deliveryID+hashCode` where deliveryID uniquely identifies a delivery in the Firestore Cloud database and hashCode refers to an MD5 hash stored as a field under that delivery's record.
+
+### 5. REST-API 
+
+External systems can interact with the Firebase Realtime DB data by sending the appropriate HTTPS request. 
+
+The URL to use will vary depending on whether the app is running using the live server or the local Realtime DB emulator.
+
+The endpoint for the live server is the following:
+
+```
+https://inbox-sdp-default-rtdb.europe-west1.firebasedatabase.app/<dir>/<subdir>/<jsonfile>
+```
+
+By contrast, the endpoint for the emulated server is:
+
+```
+http://HOST//<dir>/<subdir>/<jsonfile>/?ns=inbox-sdp
+```
+
+An example GET request to read user1 in the database is shown below
+
+```
+curl "https://inbox-sdp-default-rtdb.europe-west1.firebasedatabase.app/users/user1.json"
+```
+
+For more information on the structure of the requests, please refer to the official documentation [here](https://firebase.google.com/docs/reference/rest/database?hl=en)

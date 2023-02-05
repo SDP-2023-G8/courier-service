@@ -53,12 +53,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBrvVJqImKJh6Jz59nTjYQfOGrqWa6zFuk',
-    appId: '1:527248430135:web:c243262051f6680862dbb2',
-    messagingSenderId: '527248430135',
-    projectId: 'inbox-sdp',
-    authDomain: 'inbox-sdp.firebaseapp.com',
-    storageBucket: 'inbox-sdp.appspot.com',
-    measurementId: 'G-5C8V7TB1V0',
-  );
+      apiKey: "AIzaSyBrvVJqImKJh6Jz59nTjYQfOGrqWa6zFuk",
+      authDomain: "inbox-sdp.firebaseapp.com",
+      databaseURL:
+          "https://inbox-sdp-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "inbox-sdp",
+      storageBucket: "inbox-sdp.appspot.com",
+      messagingSenderId: "527248430135",
+      appId: "1:527248430135:web:c243262051f6680862dbb2",
+      measurementId: "G-5C8V7TB1V0");
 }
