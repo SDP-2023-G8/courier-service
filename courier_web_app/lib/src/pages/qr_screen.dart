@@ -26,6 +26,17 @@ class _QRScreenState extends State<QRScreen> {
     if (useEmulator) {
       db.useDatabaseEmulator('localhost', 9000);
     }
+
+    // Set up database listener
+    DatabaseReference scannedRef =
+        db.ref('deliveries/${widget.deliveryID}/scanned');
+    scannedRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value; // updated scanned value
+      if (data == true) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CameraScreen()));
+      }
+    });
   }
 
   @override
@@ -52,24 +63,7 @@ class _QRScreenState extends State<QRScreen> {
                 } else {
                   return const CircularProgressIndicator();
                 }
-              }),
-          TextButton(
-            child: const Text(
-              'Next (debugging)',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w800,
-                color: Colors.orange,
-                letterSpacing: -0.5,
-              ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CameraScreen()),
-              );
-            },
-          )
+              })
         ],
       ),
     ));
