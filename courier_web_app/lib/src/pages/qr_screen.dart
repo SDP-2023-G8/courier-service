@@ -4,7 +4,7 @@ import 'package:courier_web_app/src/pages/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-const bool useEmulator = true;
+const bool useEmulator = false;
 
 class QRScreen extends StatefulWidget {
   final String deliveryID;
@@ -24,7 +24,7 @@ class _QRScreenState extends State<QRScreen> {
     super.initState();
 
     if (useEmulator) {
-      db.useDatabaseEmulator('localhost', 9000);
+      db.useDatabaseEmulator(host, 9000);
     }
 
     // Set up database listener

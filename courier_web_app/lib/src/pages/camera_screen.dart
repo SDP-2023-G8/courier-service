@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:courier_web_app/src/pages/confirm_screen.dart';
 
-const bool useEmulator = true;
+const bool useEmulator = false;
 
 class CameraScreen extends StatefulWidget {
   static late List<CameraDescription> cameras;
@@ -30,12 +30,13 @@ class _CameraScreen extends State<CameraScreen> {
   void initState() {
     super.initState();
     resetCameraController();
+    String host = 'localhost';
 
     // Create Firebase Storage reference
     final FirebaseStorage storageInstance = FirebaseStorage.instance;
 
     if (useEmulator) {
-      storageInstance.useStorageEmulator('localhost', 9199);
+      storageInstance.useStorageEmulator(host, 9199);
     }
 
     storageRef = storageInstance.ref().child('file.jpg');
