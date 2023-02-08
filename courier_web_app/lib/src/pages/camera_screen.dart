@@ -73,7 +73,8 @@ class _CameraScreen extends State<CameraScreen> {
             lensDirection: CameraLensDirection.back,
             sensorOrientation: 1)
         : _cameras[0];
-    _controller = CameraController(description, ResolutionPreset.max);
+    _controller =
+        CameraController(description, ResolutionPreset.max, enableAudio: false);
     _initializedControllerFuture = _controller.initialize();
   }
 
@@ -146,24 +147,54 @@ class _CameraScreen extends State<CameraScreen> {
                               ],
                             ),
                           )
-                        : Expanded(
-                            child: FloatingActionButton(
-                            backgroundColor: Colors.black,
-                            onPressed: () async {
-                              try {
-                                await _initializedControllerFuture;
-                                final image = await _controller.takePicture();
+                        : Container(
+                            padding: const EdgeInsets.all(20),
+                            child: Row(
+                              children: [
+                                const Spacer(),
+                                Expanded(
+                                    child: FloatingActionButton(
+                                  backgroundColor: Colors.black,
+                                  onPressed: () async {
+                                    try {
+                                      await _initializedControllerFuture;
+                                      final image =
+                                          await _controller.takePicture();
 
-                                if (!mounted) return;
+                                      if (!mounted) return;
 
-                                callSetStateImage(image.path);
-                              } catch (e) {}
-                            },
-                            child: const Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
+                                      callSetStateImage(image.path);
+                                    } catch (_) {}
+                                  },
+                                  child: const Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                                Expanded(
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(23)))),
+                                        child: const Text(
+                                          'Skip',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ConfirmScreen()),
+                                          );
+                                        }))
+                              ],
                             ),
-                          ))
+                          )
                   ],
                 ),
               ),
