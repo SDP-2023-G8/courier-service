@@ -28,6 +28,8 @@ class _CameraScreen extends State<CameraScreen> {
 
   @override
   void initState() {
+    imageCache!.clear();
+    imageCache!.clearLiveImages();
     super.initState();
     resetCameraController();
     String host = 'localhost';
@@ -112,24 +114,33 @@ class _CameraScreen extends State<CameraScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                        minimumSize: Size(
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                50,
+                                            50),
                                         backgroundColor: Colors.black,
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(23)))),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 30.0, vertical: 15.0)),
                                     child: const Text(
-                                      'Re-take Photo',
+                                      'Retake',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
                                     onPressed: () => callSetStateImage('')),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.green,
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(23)))),
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: Size(
+                                          MediaQuery.of(context).size.width /
+                                                  2 -
+                                              50,
+                                          50),
+                                      backgroundColor: const Color(0xff7fb069),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 30.0, vertical: 15.0),
+                                    ),
                                     child: const Text(
                                       'Submit',
                                       style: TextStyle(
@@ -143,7 +154,7 @@ class _CameraScreen extends State<CameraScreen> {
                                             builder: (context) =>
                                                 const ConfirmScreen()),
                                       );
-                                    })
+                                    }),
                               ],
                             ),
                           )
