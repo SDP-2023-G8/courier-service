@@ -183,16 +183,16 @@ class _CameraScreen extends State<CameraScreen> {
                                   ),
                                 )),
                                 Expanded(
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red,
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(23)))),
+                                    child: OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: Color(0xff7fb069)),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15.0)),
                                         child: const Text(
-                                          'Skip',
+                                          'Skip >',
                                           style: TextStyle(
-                                              color: Colors.black,
+                                              color: Color(0xff7fb069),
                                               fontSize: 20),
                                         ),
                                         onPressed: () {
