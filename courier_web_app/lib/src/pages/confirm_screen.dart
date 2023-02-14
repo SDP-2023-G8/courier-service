@@ -13,7 +13,7 @@ class ConfirmScreen extends StatelessWidget {
             const FractionallySizedBox(
               widthFactor: 0.8,
               child: FittedBox(
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   child: Text(
                     '3. Delivery Complete! You can now close this tab',
                     style: TextStyle(fontSize: 22),
