@@ -32,6 +32,7 @@ dependencies:
   qr_flutter: ^4.0.0
   firebase_dart: ^1.0.11
   camera: ^0.10.3
+  http: any
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +41,7 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
   firebase_storage: ^11.0.10
+  mongo_dart: ^0.8.2
 
 dev_dependencies:
   flutter_test:

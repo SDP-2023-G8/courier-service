@@ -1,10 +1,11 @@
-import 'package:courier_web_app/src/data/database.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'dart:convert';
 import 'package:courier_web_app/src/pages/camera_screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-const bool useEmulator = false;
+const API_HOST =
+    String.fromEnvironment('API_HOST', defaultValue: 'localhost:5000');
 
 class QRScreen extends StatefulWidget {
   final String deliveryID;
@@ -16,27 +17,47 @@ class QRScreen extends StatefulWidget {
 }
 
 class _QRScreenState extends State<QRScreen> {
-  FirebaseDatabase db = FirebaseDatabase.instance;
-  String host = 'localhost'; // change when using Firebase
-
   @override
   void initState() {
     super.initState();
 
-    if (useEmulator) {
-      db.useDatabaseEmulator(host, 9000);
-    }
-
-    // Set up database listener
-    DatabaseReference scannedRef =
-        db.ref('deliveries/${widget.deliveryID}/scanned');
-    scannedRef.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value; // updated scanned value
-      if (data == true) {
+    // Subscribe to listen to scanned state of delivery
+    subscribeScanned(deliveryId: widget.deliveryID).then((scanned) {
+      if (scanned.isNotEmpty) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CameraScreen()));
       }
     });
+  }
+
+  // Make REST-API call to retrieve hash code for delivery
+  Future<String> fetchHashCode({required String deliveryId}) async {
+    final response = await http.get(
+        Uri.parse("http://$API_HOST/api/v1/deliveries/$deliveryId"),
+        headers: {'Access-Control-Allow-Origin': '*'});
+
+    if (response.statusCode == 200) {
+      // If server returns the delivery, parse JSON and return hashCode
+      final parsedJson = jsonDecode(response.body);
+      return parsedJson['hashCode'];
+    } else {
+      // If server does not return the delivery, raise exception
+      throw Exception("Failed to retrieve the delivery");
+    }
+  }
+
+  // Make REST-API call to subscribe to scanned flag state
+  Future<String> subscribeScanned({required String deliveryId}) async {
+    final response = await http
+        .get(Uri.parse("http://$API_HOST/api/v1/deliveries/$deliveryId/poll"));
+
+    if (response.statusCode == 201) {
+      // If the scanned value of the delivery is changed, server will reply
+      // with status code 201
+      return response.body;
+    } else {
+      throw Exception("Failed to subscribe to the delivery");
+    }
   }
 
   @override
@@ -54,9 +75,9 @@ class _QRScreenState extends State<QRScreen> {
             height: 50,
           ),
           FutureBuilder(
-              future: RealtimeDatabase.read(deliveryId: widget.deliveryID),
+              future: fetchHashCode(deliveryId: widget.deliveryID),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
                   return QrImage(
                       data: '${widget.deliveryID}+${snapshot.data.toString()}',
                       size: 270);
