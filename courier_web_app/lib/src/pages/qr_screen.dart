@@ -22,10 +22,12 @@ class _QRScreenState extends State<QRScreen> {
     super.initState();
 
     // Subscribe to listen to scanned state of delivery
-    subscribeScanned(deliveryId: widget.deliveryID).then((scanned) {
-      if (scanned.isNotEmpty) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const CameraScreen()));
+    subscribeScanned(deliveryId: widget.deliveryID).then((response) {
+      if (response.isNotEmpty) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CameraScreen(widget.deliveryID)));
       }
     });
   }
