@@ -1,16 +1,18 @@
-import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:courier_web_app/src/pages/confirm_screen.dart';
 
-const bool useEmulator = false;
+const API_HOST =
+    String.fromEnvironment('API_HOST', defaultValue: 'localhost:5000');
 
 class CameraScreen extends StatefulWidget {
+  final String deliveryID;
   static late List<CameraDescription> cameras;
 
-  const CameraScreen({Key? key}) : super(key: key);
+  const CameraScreen(this.deliveryID, {Key? key}) : super(key: key);
 
   @override
   _CameraScreen createState() => _CameraScreen(cameras);
@@ -21,27 +23,16 @@ class _CameraScreen extends State<CameraScreen> {
 
   bool _flag = false;
   late String _imagePath;
-  late Reference storageRef;
   final List<CameraDescription> _cameras;
   late CameraController _controller;
   late Future<void> _initializedControllerFuture;
 
   @override
   void initState() {
-    imageCache!.clear();
-    imageCache!.clearLiveImages();
+    imageCache.clear();
+    imageCache.clearLiveImages();
     super.initState();
     resetCameraController();
-    String host = 'localhost';
-
-    // Create Firebase Storage reference
-    final FirebaseStorage storageInstance = FirebaseStorage.instance;
-
-    if (useEmulator) {
-      storageInstance.useStorageEmulator(host, 9199);
-    }
-
-    storageRef = storageInstance.ref().child('file.jpg');
   }
 
   @override
@@ -59,13 +50,17 @@ class _CameraScreen extends State<CameraScreen> {
   }
 
   void uploadImage(String imagePath) async {
-    try {
-      // Convert BLOB image url to string of bytes for upload
-      Uint8List fileBytes = await http.readBytes(Uri.parse(imagePath));
-      await storageRef.putData(fileBytes);
-    } on FirebaseException catch (_) {
-      rethrow;
-    }
+    // Convert BLOB image url to string of bytes for upload
+    Uint8List fileBytes = await http.readBytes(Uri.parse(imagePath));
+    Map data = {"base64Image": base64Encode(fileBytes)};
+    await http.post(
+        Uri.parse(
+            "http://$API_HOST/api/v1/deliveries/${widget.deliveryID}/image"),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        },
+        body: json.encode(data));
   }
 
   void resetCameraController() {

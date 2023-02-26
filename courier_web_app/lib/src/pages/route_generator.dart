@@ -23,7 +23,7 @@ class RouteGenerator {
             builder: (_) => QRScreen(deliveryID), settings: settings);
       case cameraRoute:
         return MaterialPageRoute(
-            builder: (_) => const CameraScreen(), settings: settings);
+            builder: (_) => CameraScreen(deliveryID), settings: settings);
       case confirmRoute:
         return MaterialPageRoute(
             builder: (_) => const ConfirmScreen(), settings: settings);

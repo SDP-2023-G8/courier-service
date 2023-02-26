@@ -27,7 +27,7 @@ The typical use case from the courier's perspective can be seen below:
 This repository is built on two core technologies
 
 1. Flutter on Web
-2. Firebase
+2. MongoDB
 
 ### 3. Usage
 
@@ -42,49 +42,25 @@ If you have Chrome installed, this device should appear in this list.
 After ensuring the device is available, you can run the following command to execute the application locally:
 
 ```
-flutter run -d chrome
+flutter run -d chrome --dart-define=API_HOST=<api_hostname:port>
 ```
 
 This will open a terminal session that supports hot restarting for development purposes (hot reload not currently supported by Flutter Web).
 
-To edit and view the local database emulator, first ensure that firebase-tools is installed on your machine, otherwise install via npm. You can then navigate to the backend directory in the root folder and execute the command to start the firebase emulators.
+Note that you can pass environment variables using --dart-define to specify the REST-API hostname and port. If not specified, this will default to `localhost:5000`.
+
+Note also, that if chrome does not appear as one of your devices, you can run the application using flutter's development web server:
 
 ```
-npm install -g firebase-tools
-cd backend 
-firebase emulators:start
+flutter run -d web-server --dart-define=API_HOST=<api_hostname:port>
 ```
 
-To use the local emulator, make sure to import the appropriate JSON tree structure to `inbox-sdp-default-rtdb`, otherwise the data will not be visible to the app.
-
-**If you are running the latest version of firebase-tools you will need to have Java 11 installed for this step to work as Firebase CLI has dropped support for older versions of Java**
+Note that if running locally, you must have an instance of the REST-API running on your machine. See the README on the InBoX-REST repo for instructions on how to set that up.
 
 ### 4. QR Code Details
 
 In the current implementation, the QR code is generated from a string in the format `deliveryID+hashCode` where deliveryID uniquely identifies a delivery in the Firestore Cloud database and hashCode refers to an MD5 hash stored as a field under that delivery's record.
 
-### 5. REST-API 
+### 5. REST-API
 
-External systems can interact with the Firebase Realtime DB data by sending the appropriate HTTPS request. 
-
-The URL to use will vary depending on whether the app is running using the live server or the local Realtime DB emulator.
-
-The endpoint for the live server is the following:
-
-```
-https://inbox-sdp-default-rtdb.europe-west1.firebasedatabase.app/<dir>/<subdir>/<jsonfile>
-```
-
-By contrast, the endpoint for the emulated server is:
-
-```
-http://HOST//<dir>/<subdir>/<jsonfile>/?ns=inbox-sdp
-```
-
-An example GET request to read user1 in the database is shown below
-
-```
-curl "https://inbox-sdp-default-rtdb.europe-west1.firebasedatabase.app/users/user1.json"
-```
-
-For more information on the structure of the requests, please refer to the official documentation [here](https://firebase.google.com/docs/reference/rest/database?hl=en)
+As mentioned above, the courier service app relies on communication to our internal REST-API. If not using a local instance of this API, you must specify the hostname and port of the API using the --dart-define flag.
