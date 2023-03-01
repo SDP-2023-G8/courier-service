@@ -36,7 +36,10 @@
   <script>
 
     function triggerVibrate() {
-      navigator.vibrate(200);
+      window.focus();
+      if (navigator.vibrate) {
+        window.navigator.vibrate(200);
+      }
     }
 
     var serviceWorkerVersion = null;
