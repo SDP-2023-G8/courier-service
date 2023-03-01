@@ -74,7 +74,7 @@ class _CameraScreen extends State<CameraScreen> {
             name: '',
             lensDirection: CameraLensDirection.back,
             sensorOrientation: 1)
-        : _cameras[0];
+        : _cameras[1];
     _controller =
         CameraController(description, ResolutionPreset.max, enableAudio: false);
     _initializedControllerFuture = _controller.initialize();
