@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:courier_web_app/src/pages/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:js' as js;
 
 const bool useEmulator = false;
 
@@ -33,6 +34,7 @@ class _QRScreenState extends State<QRScreen> {
     scannedRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value; // updated scanned value
       if (data == true) {
+        js.context.callMethod('triggerVibrate');
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CameraScreen()));
       }
